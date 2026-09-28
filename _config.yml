@@ -1,0 +1,8 @@
+title: Miso Lee
+email: misoleekr@gmail.com
+baseurl: ""
+url: "https://misoleekr.github.io"
+github_username: misoleekr
+
+exclude:
+  - README.md
