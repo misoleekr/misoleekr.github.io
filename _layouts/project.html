@@ -68,23 +68,37 @@
       <div class="columns is-centered has-text-centered">
         <!-- <div class="column is-four-fifths"> -->
         <div class="column is-full">
-          <h2 class="title is-3">{{section.title}}</h2>
+          {%- if section.title -%}<h2 class="title is-3">{{section.title}}</h2>{%- endif -%}
           <div class="content has-text-justified">
             {%- for paragraph in section.paragraphs -%}
                 {% case paragraph.type %}
                     {% when "text" %}
                     <p>{{paragraph.content}}</p>
         
-                    {% when "mini-title" %}
-                    <center><h3>{{paragraph.content}}</h3></center>
                     {% when "table" %}
                     <div class="table-container" style="max-width: {{paragraph.max_width}}px;">
                         <p>{{paragraph.content}}</p>
                     </div>
                     
+                    {% when "tabs" %}
+                    <div class="tabs is-centered is-boxed">
+                        <ul>
+                            {% for tab in paragraph.tabs %}
+                            <li class="{% if forloop.first %}is-active{% endif %}" data-tab="{{forloop.index}}"><a>{{tab.label}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="tab-panes">
+                        {% for tab in paragraph.tabs %}
+                        <div class="tab-pane has-text-centered" data-pane="{{forloop.index}}" {% unless forloop.first %}style="display: none"{% endunless %}>
+                            <img src="{{tab.url}}" style="width: {{paragraph.max_width}}px; max-width: 100%"/>
+                        </div>
+                        {% endfor %}
+                    </div>
+
                     {% when "image" %}
-                    <div class="img-container">
-                        <img src="{{paragraph.url}}" style="width: {{paragraph.max_width}}px"/>
+                    <div class="img-container has-text-centered">
+                        <img src="{{paragraph.url}}" style="width: {{paragraph.max_width}}px; max-width: 100%"/>
                         {% if paragraph.caption %}
                             <p class="caption"><span>{{paragraph.caption}}</span></p>
                         {% endif %}
@@ -165,7 +179,7 @@
 <!--BibTex citation -->
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX</h2>
+      <h2 class="title is-3 has-text-centered">Citation</h2>
       <!-- <pre><code>BibTex Code Here</code></pre> -->
       <pre><code>{{ page.bibtex }}</code></pre>
     </div>
@@ -196,6 +210,17 @@
 <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
 
     <!-- End of Statcounter Code -->
+
+<!-- Tab switching for "tabs" paragraphs -->
+<script>
+  $('.tabs li').on('click', function() {
+    var tabs = $(this).closest('.tabs');
+    tabs.find('li').removeClass('is-active');
+    $(this).addClass('is-active');
+    tabs.next('.tab-panes').children('.tab-pane').hide()
+      .filter('[data-pane="' + $(this).data('tab') + '"]').show();
+  });
+</script>
 
   </body>
   </html>

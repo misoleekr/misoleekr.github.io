@@ -31,7 +31,58 @@ sections:
       paragraphs:
         - type: text
           content: >-
-            While Gaussian Splatting-based Feature Fields (GSFFs) have shown promise for visual localization, this paper highlights that photometrically optimized GSFFs are inherently ill-suited for 2D-3D matching. The volumetric extent of each Gaussian induces many-to-one pixel-to-point mappings that destabilize PnP-based pose estimation, while photometric optimization gives rise to superfluous Gaussians devoid of multi-view consistency. To address these issues, we propose SplitGS-Loc, a localization-specialized GSFFs construction framework that disambiguates 2D-3D correspondences by exploiting Gaussian attributes. Our key design, Mixture-of-Gaussians-based splitting, decomposes each Gaussian into smaller Gaussians, replacing ambiguous many-to-one with precise one-to-one correspondences. In parallel, we exploit composition weights from GS rasterization to select Gaussians that significantly and consistently contribute across multiple views and aggregate discriminative features through strong pixel-Gaussian associations, enforcing multi-view consistency. The resulting compact yet discriminative feature fields enable stable PnP convergence, achieving state-of-the-art performance on localization benchmarks. Extensive experiments validate that SplitGS-Loc extends the utility of photometric GSFFs to accurate and efficient localization by exploiting Gaussian attributes, without per-scene training or iterative pose refinement.
+            While Gaussian Splatting-based Feature Fields (GSFFs) have shown promise for visual localization, this paper highlights that photometrically optimized GSFFs are inherently not suitable for 2D-3D matching. The volumetric extent of each Gaussian induces many-to-one pixel-to-point mappings that destabilize PnP-based pose estimation, while photometric optimization gives rise to superfluous Gaussians devoid of multi-view consistency.
+        - type: text
+          content: >-
+            To address these issues, we propose <b>SplitGS-Loc</b>, a GSFFs construction framework for localization, which disambiguates 2D-3D correspondences by exploiting Gaussian attributes.
+            <ul>
+            <li>Our key design, Mixture-of-Gaussians-based splitting, decomposes each Gaussian into smaller Gaussians, replacing ambiguous many-to-one with precise one-to-one correspondences.</li>
+            <li>In parallel, we exploit composition weights from GS rasterization to select Gaussians that significantly and consistently contribute across multiple views and aggregate discriminative features through strong pixel-Gaussian associations.</li>
+            </ul>
+        - type: text
+          content: >-
+            The resulting compact yet discriminative feature fields enable stable PnP convergence, achieving competitive performance on localization benchmarks. Extensive experiments validate that SplitGS-Loc extends the utility of photometric GSFFs to accurate and efficient localization by exploiting Gaussian attributes, without per-scene training for feature fields or iterative pose refinement.
+
+    - title: "Overall Framework"
+      paragraphs:
+        - type: image
+          url: /SplitGS-Loc/resources/pipeline.gif
+          max_width: 960
+        - type: text
+          content: >-
+            <ol>
+            <li>Mixture-of-Gaussians-based Splitting: Make more room for features</li>
+            <li>Select primary Gaussians that significantly and consistently contribute across views</li>
+            <li>Assign a weighted average feature to each Gaussian, using strong pixel-Gaussian correspondences</li>
+            </ol>
+            Given 3DGS, the whole process takes about a minute per scene.
+
+    - title: "Lightweight, Fast, and Accurate Visual Localization"
+      paragraphs:
+        - type: text
+          content: >-
+            Exploiting Gaussian attributes and disambiguating 2D-3D correspondences, we do not require
+            <ul>
+            <li>iterative camera pose refinement</li>
+            <li>full RGB 3D Gaussians and corresponding feature maps</li>
+            <li>multi-stage optimization of 3D feature fields and neural networks</li>
+            </ul>
+            for accurate localization.
+        - type: image
+          url: /SplitGS-Loc/resources/result.jpg
+          max_width: 600
+
+    - title: "Stabilizing Perspective-n-Point and RANSAC Algorithm"
+      paragraphs:
+        - type: text
+          content: >-
+            Fewer many-to-one matches and more valid matches lead to more robust performance under various RANSAC settings.
+        - type: tabs
+          max_width: 640
+          tabs:
+            - {label: "Median Error", url: /SplitGS-Loc/resources/median.jpg}
+            - {label: "Runtime", url: /SplitGS-Loc/resources/runtime.jpg}
+            - {label: "Matches", url: /SplitGS-Loc/resources/inliers.jpg}
   
 bibtex: >-
   @article{lee2026splitgsloc,
