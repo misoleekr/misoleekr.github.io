@@ -63,9 +63,9 @@ sections:
           content: >-
             Exploiting Gaussian attributes and disambiguating 2D-3D correspondences, we do not require
             <ul>
-            <li>iterative camera pose refinement</li>
-            <li>full RGB 3D Gaussians and corresponding feature maps</li>
-            <li>multi-stage optimization of 3D feature fields and neural networks</li>
+            <li>Camera pose refinement with iterative rendering</li>
+            <li>full RGB Gaussians and corresponding feature maps</li>
+            <li>multi-stage optimization of feature fields and neural networks</li>
             </ul>
             for accurate localization.
         - type: image
