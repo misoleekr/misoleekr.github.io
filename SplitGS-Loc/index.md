@@ -4,12 +4,11 @@ title: Disambiguating 2D-3D Correspondences in Gaussian Splatting-based Feature 
 keywords: Visual Localization, Gaussian Splatting, Feature Fields
 authors:
     - {name: "Miso Lee", link: "https://misoleekr.github.io/", org: 0}
-    - {name: "Sangeek Hyun", link: "https://hse1032.github.io/", org: 1}
+    - {name: "Sangeek Hyun", link: "https://hse1032.github.io/", org: 0}
     - {name: "Yerim Jeon", link: "https://jyerim.github.io", org: 0}
     - {name: "Jae-Pil Heo", link: "https://sites.google.com/site/jaepilheo", org: 0, corresponding: "True"}
 affiliations:
     - "Sungkyunkwan University"
-    - "NAVER LABS"
 
 paper_link:
 supplementary_link:
@@ -77,12 +76,9 @@ sections:
         - type: text
           content: >-
             Fewer many-to-one matches and more valid matches lead to more robust performance under various RANSAC settings.
-        - type: tabs
-          max_width: 640
-          tabs:
-            - {label: "Median Error", url: /SplitGS-Loc/resources/median.jpg}
-            - {label: "Runtime", url: /SplitGS-Loc/resources/runtime.jpg}
-            - {label: "Matches", url: /SplitGS-Loc/resources/inliers.jpg}
+        - type: image
+          url: /SplitGS-Loc/resources/compare.png
+          max_width: 660
   
 bibtex: >-
   @article{lee2026splitgsloc,
